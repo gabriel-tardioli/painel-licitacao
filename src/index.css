@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 215 30% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 30% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 30% 14%;
+
+    --primary: 214 62% 26%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 25% 93%;
+    --secondary-foreground: 215 30% 14%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 12% 50%;
+
+    --accent: 42 92% 55%;
+    --accent-foreground: 215 30% 14%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 60% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 215 30% 14%;
+
+    --info: 214 62% 26%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 214 62% 26%;
+
+    --radius: 0.625rem;
+
+    --sidebar-background: 214 62% 26%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 42 92% 55%;
+    --sidebar-primary-foreground: 215 30% 14%;
+    --sidebar-accent: 214 55% 32%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 214 50% 35%;
+    --sidebar-ring: 42 92% 55%;
+
+    --font-heading: 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    --gradient-primary: linear-gradient(135deg, hsl(214, 62%, 26%), hsl(214, 55%, 38%));
+    --gradient-accent: linear-gradient(135deg, hsl(42, 92%, 55%), hsl(38, 92%, 50%));
+    --gradient-card: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(210, 20%, 98%) 100%);
+    --shadow-card: 0 1px 3px 0 hsl(214 20% 50% / 0.06), 0 1px 2px -1px hsl(214 20% 50% / 0.06);
+    --shadow-card-hover: 0 10px 25px -5px hsl(214 20% 50% / 0.1), 0 8px 10px -6px hsl(214 20% 50% / 0.06);
+    --shadow-elevated: 0 20px 40px -10px hsl(214 20% 50% / 0.15);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  .kpi-card {
+    @apply bg-card rounded-xl p-5 border border-border;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .kpi-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+  .kpi-value {
+    font-family: var(--font-heading);
+    @apply text-3xl font-bold text-foreground tracking-tight;
+  }
+  .kpi-label {
+    @apply text-sm font-medium text-muted-foreground uppercase tracking-wider;
+  }
+  .section-title {
+    font-family: var(--font-heading);
+    @apply text-lg font-semibold text-foreground;
+  }
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .chart-container {
+    @apply bg-card rounded-xl p-5 border border-border;
+    box-shadow: var(--shadow-card);
+  }
+}
+
+
+
+
+@media print {
+  @page {
+    size: A4 portrait;
+    /*
+      Margens baseadas no timbrado de referência:
+        Superior: 30mm
+        Laterais: 25mm
+        Inferior: 4.5mm
+    */
+    margin: 30mm 25mm 4.5mm 25mm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  [data-sidebar],
+  header {
+    display: none !important;
+  }
+
+  main {
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  .report-print-header {
+    display: block !important;
+    position: fixed;
+    top: -30mm;
+    left: -25mm;
+    right: -25mm;
+    height: 24mm;
+    z-index: 9999;
+    background: #fff;
+  }
+
+  .report-print-header .header-brand {
+    display: block !important;
+    height: 16mm;
+    width: auto;
+    object-fit: contain;
+    object-position: left top;
+    margin-top: 2.5mm;
+  }
+
+  .report-print-header .header-line {
+    display: block !important;
+    position: absolute;
+    top: 13mm;
+    left: 39mm;
+    right: 0;
+    height: 3mm;
+    width: auto;
+    object-fit: fill;
+  }
+
+  .report-print-footer {
+    display: none !important;
+  }
+
+  .report-page-break {
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .report-page-break:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .report-cover,
+  .report-print-stack > *,
+  .report-print-kpi-grid > *,
+  .report-keep-together,
+  .report-keep-together table,
+  .report-keep-together thead,
+  .report-keep-together tbody,
+  .report-keep-together tr {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .report-print-stack {
+    display: block !important;
+  }
+
+  .report-print-stack > * + * {
+    margin-top: 1rem !important;
+  }
+
+  .report-print-kpi-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.75rem !important;
+  }
+
+  .report-print-stack .recharts-responsive-container,
+  .report-keep-together .recharts-responsive-container {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .report-allow-break,
+  .report-allow-break table,
+  .report-allow-break thead,
+  .report-allow-break tbody,
+  .report-allow-break tr {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  #report-preview {
+    border: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .report-cover,
+  #report-preview > div {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .chart-container,
+  .kpi-card {
+    box-shadow: none !important;
+  }
+}
